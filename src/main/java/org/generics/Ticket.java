@@ -37,13 +37,6 @@ public class Ticket implements Comparable<Ticket> {
 
     @Override
     public int compareTo(Ticket o) {
-        if (cost < o.cost) {
-            return -1;
-        }
-        if (cost > o.cost) {
-            return 1;
-        }
-        return 0;
-        // Или в 1 строку:  return Integer.compare(cost, o.cost);
+        return Integer.compare(cost, o.cost);
     }
 }
