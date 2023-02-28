@@ -33,6 +33,6 @@ public class TicketManager {
     }
 
     private boolean matches(Ticket ticket, String from, String to) {
-        return ticket.getIATAFrom() == from && ticket.getIATATo() == to;
+        return ticket.getIATAFrom().equals(from) && ticket.getIATATo().equals(to);
     }
 }
