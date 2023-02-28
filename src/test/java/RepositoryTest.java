@@ -12,8 +12,9 @@ public class RepositoryTest {
         Ticket ticket = new Ticket(1, 100, "LED", "KUF", 1500);
         repository.addTicket(ticket);
 
-        assertEquals(1, repository.findAll().length);
-        assertEquals(ticket, repository.findAll()[0]);
+        Ticket[] exp = new Ticket[]{ticket};
+
+        assertArrayEquals(exp, repository.findAll());
         assertEquals(100, ticket.getCost());
         assertEquals(1500, ticket.getFlightTime());
     }
@@ -26,9 +27,9 @@ public class RepositoryTest {
         repository.addTicket(ticket1);
         repository.addTicket(ticket2);
 
-        assertEquals(2, repository.findAll().length);
-        assertEquals(ticket1, repository.findAll()[0]);
-        assertEquals(ticket2, repository.findAll()[1]);
+        Ticket[] exp = new Ticket[]{ticket1, ticket2};
+
+        assertArrayEquals(exp, repository.findAll());
     }
 
     @Test
@@ -36,13 +37,22 @@ public class RepositoryTest {
         Repository repository = new Repository();
         Ticket ticket1 = new Ticket(1, 100, "LED", "KUF", 1500);
         Ticket ticket2 = new Ticket(2, 200, "KUF", "GOJ", 1000);
+        Ticket ticket3 = new Ticket(3, 200, "KUF", "LED", 1000);
+        Ticket ticket4 = new Ticket(4, 200, "GOJ", "LED", 2000);
+
         repository.addTicket(ticket1);
         repository.addTicket(ticket2);
+        repository.addTicket(ticket3);
+        repository.addTicket(ticket4);
 
-        repository.removeProduct(1);
-        assertEquals(1, repository.findAll().length);
-        assertEquals(ticket2, repository.findAll()[0]);
+        repository.removeTicket(1);
+        repository.removeTicket(2);
+        repository.removeTicket(4);
 
-        assertThrows(NotFoundException.class, () -> repository.removeProduct(1));
+        Ticket[] exp = new Ticket[]{ticket3};
+
+        assertArrayEquals(exp, repository.findAll());
+        assertThrows(NotFoundException.class, () -> repository.removeTicket(1));
+        assertThrows(NotFoundException.class, () -> repository.removeTicket(5));
     }
 }

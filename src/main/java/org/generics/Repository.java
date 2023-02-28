@@ -19,7 +19,7 @@ public class Repository {
         tickets = newProducts;
     }
 
-    public void removeProduct(int id) {
+    public void removeTicket(int id) {
         Ticket ticket = findById(id);
         if (ticket == null) {
             throw new NotFoundException(String.format("There is no product with such ID: %d", id));

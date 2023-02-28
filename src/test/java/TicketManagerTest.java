@@ -14,8 +14,9 @@ public class TicketManagerTest {
         TicketManager manager = new TicketManager(repository);
         manager.add(ticket);
 
-        assertEquals(1, repository.findAll().length);
-        assertEquals(ticket, repository.findAll()[0]);
+        Ticket[] exp = new Ticket[]{ticket};
+
+        assertArrayEquals(exp, repository.findAll());
     }
 
     @Test
@@ -27,9 +28,10 @@ public class TicketManagerTest {
         manager.add(ticket1);
         manager.add(ticket2);
 
-        Ticket[] result = manager.searchBy("LED", "KUF");
-        assertEquals(1, result.length);
-        assertEquals(ticket1, result[0]);
+        Ticket[] exp = new Ticket[]{ticket1};
+        Ticket[] act = manager.searchBy("LED", "KUF");
+
+        assertArrayEquals(exp, act);
     }
 
     @Test
@@ -43,6 +45,7 @@ public class TicketManagerTest {
 
         Ticket[] expected = {};
         Ticket[] actual = manager.searchBy("LED", "GOJ");
+
         assertArrayEquals(expected, actual);
     }
 
@@ -57,9 +60,9 @@ public class TicketManagerTest {
         manager.add(ticket2);
         manager.add(ticket3);
 
-        Ticket[] result = manager.searchBy("LED", "KUF");
-        assertEquals(2, result.length);
-        assertEquals(ticket2, result[0]);
-        assertEquals(ticket1, result[1]);
+        Ticket[] act = manager.searchBy("LED", "KUF");
+        Ticket[] exp = new Ticket[]{ticket2, ticket1};
+
+        assertArrayEquals(exp, act);
     }
 }
